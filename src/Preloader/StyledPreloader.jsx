@@ -14,11 +14,11 @@ function Preloader({
   const childrenWithProp = React.Children.map(children, child => React.cloneElement(child, {
     color,
   }));
-  const bodyScroll = () => {
-    document.body.style.overflow = loading ? 'hidden' : null;
-    document.body.style.height = loading ? '100%' : null;
-    document.body.style.width = loading ? '100%' : null;
-    document.body.style.position = loading ? 'fixed' : null;
+  const bodyScroll = (disabled = true) => {
+    document.body.style.overflow = disabled ? 'hidden' : null;
+    document.body.style.height = disabled ? '100%' : null;
+    document.body.style.width = disabled ? '100%' : null;
+    document.body.style.position = disabled ? 'fixed' : null;
   };
   const generateAnimation = () => {
     const animate = animation && animation.split('-');
@@ -35,10 +35,10 @@ function Preloader({
   };
 
   useEffect(() => {
-    bodyScroll();
+    bodyScroll(true);
     return () => {
       setLoading(false);
-      bodyScroll();
+      bodyScroll(false);
     }
   }, []);
 
@@ -46,7 +46,7 @@ function Preloader({
     if (customLoading === false) {
       setTimeout(() => {
         setLoading(false);
-        bodyScroll();
+        bodyScroll(false);
       }, time);
     }
     if (customLoading === undefined) {
@@ -54,7 +54,7 @@ function Preloader({
         if (document.readyState === 'complete') {
           setTimeout(() => {
             setLoading(false);
-            bodyScroll();
+            bodyScroll(false);
           }, time);
         }
       };
