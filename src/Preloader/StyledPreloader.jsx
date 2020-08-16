@@ -36,7 +36,10 @@ function Preloader({
 
   useEffect(() => {
     bodyScroll();
-    return () => bodyScroll();
+    return () => {
+      setLoading(false);
+      bodyScroll();
+    }
   }, []);
 
   useEffect(() => {
