@@ -34,7 +34,11 @@ function Preloader({
     return background;
   };
 
-  bodyScroll();
+  useEffect(() => {
+    bodyScroll();
+    return () => bodyScroll();
+  }, []);
+
   useEffect(() => {
     if (customLoading === false) {
       setTimeout(() => {
