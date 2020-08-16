@@ -46,6 +46,7 @@ function Preloader({
     if (customLoading === false) {
       setTimeout(() => {
         setLoading(false);
+        bodyScroll();
       }, time);
     }
     if (customLoading === undefined) {
@@ -53,6 +54,7 @@ function Preloader({
         if (document.readyState === 'complete') {
           setTimeout(() => {
             setLoading(false);
+            bodyScroll();
           }, time);
         }
       };
