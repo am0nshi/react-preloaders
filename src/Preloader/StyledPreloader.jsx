@@ -15,7 +15,6 @@ function Preloader({
     color,
   }));
   const bodyScroll = (disabled = true) => {
-    console.log('bodyScroll ' + disabled);
     document.body.style.overflow = disabled ? 'hidden' : null;
     document.body.style.height = disabled ? '100%' : null;
     document.body.style.width = disabled ? '100%' : null;
@@ -38,28 +37,26 @@ function Preloader({
   useEffect(() => {
     bodyScroll(true);
     return () => {
-      console.log('hood: componentWillUnmount');
       bodyScroll(false);
       setLoading(false);
     }
   }, []);
 
   useEffect(() => {
+    if (customLoading === true) {
+      bodyScroll(true);
+      setLoading(true);
+    }
     if (customLoading === false) {
-      console.log('customLoading === false started');
       setTimeout(() => {
-        console.log('customLoading === false ended');
         bodyScroll(false);
         setLoading(false);
       }, time);
     }
     if (customLoading === undefined) {
-      console.log('document.onreadystatechange started');
       document.onreadystatechange = () => {
         if (document.readyState === 'complete') {
-          console.log('document.onreadystatechange complete status');
           setTimeout(() => {
-            console.log('document.onreadystatechange ended');
             bodyScroll(false);
             setLoading(false);
           }, time);
